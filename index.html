@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>it's Your Birthday ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #ffe4ec, #fff);
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      color: #d63384;
+      margin-bottom: 10px;
+    }
+
+    p.subtitle {
+      font-size: 1.2rem;
+      color: #444;
+      margin-bottom: 30px;
+    }
+
+    .wish-box {
+      background: #fff;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #5a005a;
+      font-weight: 500;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      background: #ff66a3;
+      color: white;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #ff4d94;
+    }
+
+    .next-btn {
+      margin-top: 20px;
+      background: #8b5cf6;
+    }
+
+    .next-btn:hover {
+      background: #7c3aed;
+    }
+  @keyframes glowSoft { from { text-shadow:0 0 6px #ff99c8,0 0 10px #ff4d94,0 0 12px #ff0066; } to { text-shadow:0 0 14px #ff4d94,0 0 20px #ff0066,0 0 26px #ff99c8; } }
+    @keyframes glow { from { text-shadow:0 0 5px #ff99c8,0 0 10px #ff4d94; } to { text-shadow:0 0 15px #ff4d94,0 0 25px #ff0066; } }
+    </style>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Glasses Reminder Overlay -->
+  <div id="glassesOverlay" style="position:fixed;inset:0;background:rgba(255,255,255,0.7);backdrop-filter:blur(12px);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:2000;text-align:center;padding:20px;">
+    <h2 style="font-size:2rem;color:#d63384;font-weight:600;">Hey Red, wear your specs first 🤓💖</h2>
+    <p style="font-size:1.2rem;color:#444;max-width:400px;">Everything looks blurry without them… once you put them on, tap the button below 👇</p>
+    <button onclick="removeBlur()" style="margin-top:20px;padding:12px 25px;border:none;background:#ff66a3;color:white;border-radius:30px;font-size:1.1rem;cursor:pointer;">I'm Wearing Them 😎✨</button>
+  </div>
+
+  <div class="container">
+    <h1>🎉 Happy Birthday, Red — My Sunshine! 🎉</h1>
+    <p class="subtitle">A small wish page, made just for you ❤️</p>
+
+    <div id="wishDisplay" class="wish-box">Click any button below to reveal a cute wish!</div>
+
+    <div class="buttons">
+      <button onclick="showWish(0)">Cute Wish 💗</button>
+      <button onclick="showWish(1)">Romantic Wish ❤️</button>
+      <button onclick="showWish(2)">Funny Wish 😂</button>
+      <button onclick="showWish(3)">Magic Wish ✨</button>
+    </div>
+
+    <button class="next-btn" onclick="nextPage()">Next Surprise →</button>
+  </div>
+
+  
+  
+  
+  
+  <!-- Next Surprise content (in-page, no external file needed) -->
+  <div id="nextSurprise" style="display:none; position:fixed; inset:0; background:linear-gradient(135deg,#ffd3e6,#ffffff); z-index:1000; overflow:auto;">
+    <div style="max-width:700px;margin:80px auto;padding:30px;background:#fff;border-radius:20px;box-shadow:0 8px 30px rgba(0,0,0,0.12);text-align:center;">
+      <h1 style="font-size:2.4rem;color:#d63384;margin:0 0 10px">🎁 Your Next Surprise! 🎁</h1>
+      <p style="color:#444;margin-bottom:20px">I made something special for you… tap below to open it ❤️</p>
+      <button id="openLetterBtn" style="padding:12px 20px;background:#8b5cf6;color:#fff;border:none;border-radius:25px;cursor:pointer;font-size:1rem">Open Your Letter 💌</button>
+      <div id="letterBox" style="display:none;margin-top:20px;color:#5a005a;font-size:1.1rem;line-height:1.6;text-align:left;">
+        <p>Dear Red, Sunshine of my life,</p>
+        <p>On your special day, I just want to remind you how precious you are. 💗</p>
+        <p>You bring happiness, warmth, and magic into my life. ✨</p>
+        <p>Thank you for being YOU. ❤️</p>
+        <p>Happy Birthday again, my Sunshine. 🌸</p>
+      </div>
+      <div style="margin-top:18px;">
+        <button id="closeSurprise" style="padding:10px 16px;border-radius:20px;border:1px solid #eee;background:#fff;cursor:pointer">Close</button>
+      </div>
+    </div>
+    <div id="confetti" style="position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:999"></div>
+  </div>
+
+  <script>
+    const wishes = [
+      "I hope your day is as sweet and beautiful as you are, Red 💖",
+      "You're the reason smiles feel special, Sunshine. Happy Birthday ❤️",
+      "You’re officially older… but still the cutest, Red 😂🎉",
+      "May your day shine brighter than the stars, my Sunshine ✨"
+    ];
+
+    function showWish(index) {
+      const box = document.getElementById("wishDisplay");
+      if (box) box.innerText = wishes[index];
+    }
+
+    function nextPage() {
+      // Show the in-page surprise overlay (works without external file)
+      document.getElementById('nextSurprise').style.display = 'block';
+      // prevent body scroll
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Hook up letter button and close
+    document.addEventListener('DOMContentLoaded', () => {
+      const openBtn = document.getElementById('openLetterBtn');
+      const closeBtn = document.getElementById('closeSurprise');
+      openBtn && openBtn.addEventListener('click', () => {
+        document.getElementById('letterBox').style.display = 'block';
+        launchConfetti();
+      });
+      closeBtn && closeBtn.addEventListener('click', () => {
+        document.getElementById('nextSurprise').style.display = 'none';
+        document.body.style.overflow = '';
+        // clear confetti
+        const cf = document.getElementById('confetti');
+        if (cf) cf.innerHTML = '';
+      });
+    });
+
+    function launchConfetti() {
+      const confetti = document.getElementById('confetti');
+      if (!confetti) return;
+      for (let i = 0; i < 40; i++) {
+        const piece = document.createElement('div');
+        piece.style.position = 'absolute';
+        piece.style.width = (8 + Math.random()*8) + 'px';
+        piece.style.height = (10 + Math.random()*10) + 'px';
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.top = '-10vh';
+        piece.style.opacity = Math.random() * 0.9 + 0.1;
+        piece.style.background = randomColor();
+        piece.style.borderRadius = '2px';
+        piece.style.transform = 'rotate(' + (Math.random()*360) + 'deg)';
+        piece.style.animation = 'confettiFall ' + (2 + Math.random()*2) + 's linear forwards';
+        confetti.appendChild(piece);
+      }
+    }
+
+    function randomColor() {
+      const colors = ["#ff66a3", "#ffcc00", "#8b5cf6", "#ff4d94", "#4dd2ff"]; 
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    // add confetti keyframes dynamically for compatibility
+    const styleEl = document.createElement('style');
+    styleEl.innerHTML = `@keyframes confettiFall { to { transform: translateY(110vh) rotate(360deg); } }`;
+    document.head.appendChild(styleEl);
+  </script>
+  <!-- Background Birthday Tune -->
+  <audio id="bgMusic" src="https://archive.org/download/HappyBirthdayTune_201303/HappyBirthdayTune.mp3" loop></audio>
+
+  <script>
+    // Enable music on first user interaction (browser autoplay rules)
+    let musicStarted = false;
+    function startMusic() {
+      if (!musicStarted) {
+        const audio = document.getElementById('bgMusic');
+        audio.volume = 1;
+        audio.play().catch(() => {});
+        musicStarted = true;
+      }
+    }
+
+    // Start music on any button click
+    document.addEventListener('click', startMusic, { once: true });
+  </script>
+
+  <p style="margin-top:40px;font-size:1.4rem;color:#ff4d94;font-weight:600;font-family:'Dancing Script', cursive;text-shadow:0 0 8px #ff99c8, 0 0 14px #ff4d94, 0 0 18px #ff0066;animation: glowSoft 2.5s ease-in-out infinite alternate;">Created by RANJAN for his Red / Sunshine ❤️</p>
+  <script>
+    function removeBlur() {
+      document.getElementById('glassesOverlay').style.display = 'none';
+      showBirthdayAnimation();
+    }
+  </script>
+<!-- Fullscreen Birthday Animation -->
+  <div id="birthdayAnimation" style="position:fixed;inset:0;display:none;justify-content:center;align-items:center;flex-direction:column;background:#ffebf3;z-index:3000;text-align:center;animation: fadeIn 0.6s ease;">
+    <h1 style="font-size:4rem;color:#d63384;font-family:'Dancing Script',cursive;animation: popIn 1s ease forwards;">🎉 Happy Birthday Red! 🎉</h1>
+    <p style="font-size:1.5rem;color:#555;animation: popIn 1.3s ease forwards;">You may enter your special page in <span id="countdown" style="font-weight:bold;color:#d63384;">10</span> seconds 💖</p>
+  </div>
+
+  <style>
+    @keyframes popIn {
+      0% { opacity:0; transform:scale(0.6); }
+      100% { opacity:1; transform:scale(1); }
+    }
+    @keyframes fadeIn {
+      from { opacity:0; }
+      to { opacity:1; }
+    }
+  </style>
+
+  <script>
+    function showBirthdayAnimation() {
+      const anim = document.getElementById('birthdayAnimation');
+      anim.style.display = 'flex';
+      // 10 second countdown
+      let timeLeft = 10;
+      const cd = document.getElementById('countdown');
+      const timer = setInterval(() => {
+        timeLeft--;
+        if (cd) cd.innerText = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          anim.style.display = 'none';
+        }
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
